@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <dynobj/ref_counter.h>
+
 namespace dynobj {
 
 /*!
@@ -20,10 +22,8 @@ namespace dynobj {
 
     Dynamic object host is container for dynamic object contexts.
 */
-class IDynamicObjectHost {
+class IDynamicObjectHost : public IRefCounter {
  public:
-    //! Mandatory base virtual destructor.
-    virtual ~IDynamicObjectHost() = default;
 };
 
 }  // namespace dynobj
