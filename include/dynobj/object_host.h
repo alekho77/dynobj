@@ -15,6 +15,8 @@
 
 #include <dynobj/ref_counter.h>
 
+#include <boost/intrusive_ptr.hpp>
+
 namespace dynobj {
 
 /*!
@@ -24,6 +26,12 @@ namespace dynobj {
 */
 class IDynamicObjectHost : public IRefCounter {
  public:
+    static boost::intrusive_ptr<IDynamicObjectHost> createInstance() {
+        return createInstancePrivate();
+    }
+
+ private:
+    static IDynamicObjectHost* createInstancePrivate();
 };
 
 }  // namespace dynobj
