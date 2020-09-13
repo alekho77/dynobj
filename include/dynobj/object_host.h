@@ -14,6 +14,8 @@
 #pragma once
 
 #include <dynobj/ref_counter.h>
+#include <dynobj/callback.h>
+#include <dynobj/log_level.h>
 
 #include <boost/intrusive_ptr.hpp>
 
@@ -26,6 +28,9 @@ namespace dynobj {
 */
 class IDynamicObjectHost : public IRefCounter {
  public:
+    //! Callback type to receive logging messages.
+    using ILogReceiver = ICallback<void(LogLevel, const char*)>;
+
     /*!
         \brief Safely creates an instance of the host object.
 
@@ -41,7 +46,7 @@ class IDynamicObjectHost : public IRefCounter {
         Contexts are stored in LIFO ordered container.
         The first loaded context is most major and destroyed in the last place.
 
-        \param config_json string with json-style configuration of a context
+        \param config string with json-style configuration of a context
         \par
             Format of context configuration:
             \code{.json}
@@ -63,10 +68,12 @@ class IDynamicObjectHost : public IRefCounter {
                 ]
             }
             \endcode
+        
+        \param log_rcv pointer to logging message receiver
 
         \return \c true if the context was loaded successfully.
     */
-    virtual bool loadContext(const char* config_json) = 0;
+    virtual bool loadContext(const char* config, ILogReceiver* log_rcv) = 0;
 
     /*!
         \brief Drops last loaded context.
