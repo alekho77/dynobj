@@ -17,12 +17,10 @@
 #include <dynobj/callback.h>
 #include <dynobj/log_level.h>
 
-#include <boost/intrusive_ptr.hpp>
-
 namespace dynobj {
 
 class IDynamicObjectHost;
-using IDynamicObjectHostPtr = boost::intrusive_ptr<IDynamicObjectHost>;
+DYNOBJ_DECLARE_PTR(IDynamicObjectHost);
 
 /*!
     \brief Interface of dynamic object host.

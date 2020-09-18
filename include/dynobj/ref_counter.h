@@ -13,8 +13,13 @@
 
 #pragma once
 
+#include <boost/intrusive_ptr.hpp>
+
 #include <utility>
 #include <atomic>
+
+//! Macro to define concrete pointer with given class.
+#define DYNOBJ_DECLARE_PTR(Class) using Class##Ptr = boost::intrusive_ptr<Class>
 
 namespace dynobj {
 
