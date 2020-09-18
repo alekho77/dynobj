@@ -14,8 +14,7 @@
 #pragma once
 
 #include <dynobj/ref_counter.h>
-#include <dynobj/callback.h>
-#include <dynobj/log_level.h>
+#include <dynobj/log.h>
 
 namespace dynobj {
 
@@ -29,11 +28,10 @@ DYNOBJ_DECLARE_PTR(IDynamicObjectHost);
 */
 class IDynamicObjectHost : public IRefCounter {
  public:
-    //! Callback type to receive logging messages.
-    using ILogReceiver = ICallback<void(LogLevel, const char*)>;
-
     /*!
         \brief Safely creates an instance of the host object.
+
+        \param log_rcv pointer to log receiver object or \c nullptr
 
         \return intrusive smart pointer to binary-safe pointer
     */

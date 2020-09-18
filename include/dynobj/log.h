@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <dynobj/callback.h>
+
 namespace dynobj {
 
 //! Logging levels type.
@@ -33,5 +35,8 @@ constexpr auto STATUS = LogLevel::Status;
 constexpr auto VERBOSE = LogLevel::Verbose;
 constexpr auto DEBUG = LogLevel::Debug;
 constexpr auto TRACE = LogLevel::Trace;
+
+//! Callback type to receive logging messages.
+using ILogReceiver = ICallback<void(LogLevel, const char*)>;
 
 }  // namespace dynobj

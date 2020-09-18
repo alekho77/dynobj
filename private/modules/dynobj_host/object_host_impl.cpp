@@ -12,7 +12,7 @@ namespace {
 
 class LogStream {
  public:
-    explicit LogStream(LogLevel level, IDynamicObjectHost::ILogReceiver* rcv) : level_(level), rcv_(rcv) {}
+    explicit LogStream(LogLevel level, ILogReceiver* rcv) : level_(level), rcv_(rcv) {}
     ~LogStream() {
         if (rcv_) {  // if no receiver, log is dropped.
             (*rcv_)(level_, str_.str().c_str());
@@ -27,7 +27,7 @@ class LogStream {
 
  private:
     const LogLevel level_;
-    IDynamicObjectHost::ILogReceiver* const rcv_;
+    ILogReceiver* const rcv_;
     std::stringstream str_;
 };
 
@@ -71,7 +71,7 @@ LogStream ObjectHostImpl::writeLog(LogLevel level) const {
 
 }  // namespace
 
-IDynamicObjectHost* IDynamicObjectHost::createInstancePrivate(IDynamicObjectHost::ILogReceiver* log_rcv) {
+IDynamicObjectHost* IDynamicObjectHost::createInstancePrivate(ILogReceiver* log_rcv) {
     return new detail::RefCounter<ObjectHostImpl>(log_rcv);
 }
 

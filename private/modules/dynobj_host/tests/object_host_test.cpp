@@ -6,7 +6,7 @@
 namespace dynobj {
 using ::testing::_;
 
-class LogReceiverMock : public IDynamicObjectHost::ILogReceiver {
+class LogReceiverMock : public ILogReceiver {
  public:
     MOCK_METHOD(void, BracketOperator, (LogLevel level, const char* str));
     void operator()(LogLevel level, const char* str) override {
