@@ -18,3 +18,5 @@ source_group("Interfaces" FILES ${INTERFACES})
 source_group("Header Files" FILES ${HEADERS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS} ${INTERFACES})
+
+include(tests/dynobj_host_tests.cmake OPTIONAL)

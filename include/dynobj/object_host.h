@@ -21,6 +21,9 @@
 
 namespace dynobj {
 
+class IDynamicObjectHost;
+using IDynamicObjectHostPtr = boost::intrusive_ptr<IDynamicObjectHost>;
+
 /*!
     \brief Interface of dynamic object host.
 
@@ -36,8 +39,8 @@ class IDynamicObjectHost : public IRefCounter {
 
         \return intrusive smart pointer to binary-safe pointer
     */
-    static boost::intrusive_ptr<IDynamicObjectHost> createInstance() {
-        return createInstancePrivate();
+    static IDynamicObjectHostPtr createInstance(ILogReceiver* log_rcv) {
+        return createInstancePrivate(log_rcv);
     }
 
     /*!
@@ -68,12 +71,12 @@ class IDynamicObjectHost : public IRefCounter {
                 ]
             }
             \endcode
-        
+
         \param log_rcv pointer to logging message receiver
 
         \return \c true if the context was loaded successfully.
     */
-    virtual bool loadContext(const char* config, ILogReceiver* log_rcv) = 0;
+    virtual bool loadContext(const char* config) = 0;
 
     /*!
         \brief Drops last loaded context.
@@ -90,7 +93,7 @@ class IDynamicObjectHost : public IRefCounter {
     virtual bool dropContext() = 0;
 
  private:
-    static IDynamicObjectHost* createInstancePrivate();
+    static IDynamicObjectHost* createInstancePrivate(ILogReceiver* log_rcv);
 };
 
 }  // namespace dynobj
